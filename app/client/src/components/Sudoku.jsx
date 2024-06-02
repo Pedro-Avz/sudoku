@@ -78,7 +78,8 @@ const Sudoku = () => {
 
   const handleSubmit = () => {
     const check = checkSolution();
-    if (check) {
+    console.log(check)
+    if (check === true) {
       const playerId = localStorage.getItem('userId');
       const gameTime = 300 - timer;
 
