@@ -121,43 +121,47 @@ const Sudoku = () => {
   
   
   const checkSolution = () => {
+    const validationBoard = board.map((row, rowIndex) =>
+      row.map((cell, colIndex) => (userInput[rowIndex][colIndex] !== '' ? userInput[rowIndex][colIndex] : cell))
+    );
+
     const isUniqueRow = (row) => {
       const seen = new Set();
       for (const cell of row) {
-        if (cell === '0' || seen.has(cell)) return false;
+        if (cell === '' || seen.has(cell)) return false;
         seen.add(cell);
       }
       return true;
     };
-  
+
     const isUniqueColumn = (colIndex) => {
       const seen = new Set();
-      for (const row of userInput) {
+      for (const row of validationBoard) {
         const cell = row[colIndex];
-        if (cell === '0' || seen.has(cell)) return false;
+        if (cell === '' || seen.has(cell)) return false;
         seen.add(cell);
       }
       return true;
     };
-  
+
     const isUniqueBlock = (blockRow, blockCol) => {
       const seen = new Set();
       for (let i = blockRow; i < blockRow + 3; i++) {
         for (let j = blockCol; j < blockCol + 3; j++) {
-          const cell = userInput[i][j];
-          if (cell === '0' || seen.has(cell)) return false;
+          const cell = validationBoard[i][j];
+          if (cell === '' || seen.has(cell)) return false;
           seen.add(cell);
         }
       }
       return true;
     };
-  
+
     for (let i = 0; i < 9; i++) {
-      if (!isUniqueRow(userInput[i]) || !isUniqueColumn(i)) {
+      if (!isUniqueRow(validationBoard[i]) || !isUniqueColumn(i)) {
         return false;
       }
     }
-  
+
     for (let blockRow = 0; blockRow < 9; blockRow += 3) {
       for (let blockCol = 0; blockCol < 9; blockCol += 3) {
         if (!isUniqueBlock(blockRow, blockCol)) {
@@ -165,7 +169,7 @@ const Sudoku = () => {
         }
       }
     }
-  
+
     return true;
   };
 
