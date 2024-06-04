@@ -39,27 +39,33 @@ const Rank = () => {
 
   return (
     <div className="container mt-5">
-      <h2>Ranking</h2>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>Username</th>
-            <th>Tempo</th>
-          </tr>
-        </thead>
-        <tbody>
-        {games.sort((a, b) => a.time - b.time).map((game, index) => (
-          <tr key={game.id_game}>
-            <td>{index + 1}°</td>
-            <td>{game.player ? game.player.username : 'Unknown'}</td>
-            <td>{game.time} seconds</td>
-          </tr>
-        ))}
-        </tbody>
-      </table>
+      <h2 className="table-title">Ranking</h2>
+      <div className="table-container">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th>Username</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {games.map((game, index) => (
+              <tr key={game.id_game}>
+                <td>{index + 1}°</td>
+                <td>{game.player ? game.player.username : 'Unknown'}</td>
+                <td>{game.time} seconds</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
+  
+  
+  
+
 };
 
 export default Rank;
